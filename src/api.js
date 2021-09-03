@@ -43,6 +43,6 @@ export const UpdateContact = async (number, contact) => {
   try {
     await axios.put(`${apiBaseUrl}/${number}`, contact);
   } catch (err) {
-    console.log(err);
+    return await err.response.status
   }
 }

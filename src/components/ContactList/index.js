@@ -22,7 +22,7 @@ const mapDispatchToProps = (dispatch) => {
   const setContactList = (contactlist) => {
     dispatch(contactActions.setContactList(contactlist));
   };
-  
+
   return {
     setContactSelected,
     setContactList,

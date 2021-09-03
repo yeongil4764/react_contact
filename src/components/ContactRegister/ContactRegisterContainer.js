@@ -38,10 +38,10 @@ class ContactRegisterContainer extends PureComponent {
     });
   };
 
-  handleSubmit = (e) => {
+  handleSubmit = async(e) => {
     e.preventDefault();
     const params = this.props.match.params.id;
-    const { setObserver, selectedcontact } = this.props;
+    const { setObserver, selectedcontact, setContactSelected } = this.props;
 
     if (selectedcontact) {
 
@@ -57,7 +57,12 @@ class ContactRegisterContainer extends PureComponent {
         }
 
       } else {
-        UpdateContact(params, this.state);
+        const error = await UpdateContact(params, this.state);
+        console.log(error);
+        if(error === 500) {
+          alert("중복되는 이메일입니다.");
+          return false;
+        }
         setObserver(true);
         this.props.history.push("/");
       }
@@ -68,6 +73,7 @@ class ContactRegisterContainer extends PureComponent {
     if (selectedcontact === null) {
       CreateContact(this.state);
       setObserver(true);
+      setContactSelected({});
       this.props.history.push("/");
     }
 
