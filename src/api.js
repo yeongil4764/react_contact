@@ -23,10 +23,7 @@ export const CreateContact = async (contact) => {
     const res = await axios.post(apiBaseUrl, contact);
     return res.data;
   } catch (err) {
-    // if(err.response.status === 500) {
-    //   return err.response.status;
-    // } 
-    console.log(err);
+    return await err.response.status;
   }
 };
 
@@ -37,12 +34,12 @@ export const getOne = async (number) => {
   } catch (err) {
     console.log(err);
   }
-}
+};
 
 export const UpdateContact = async (number, contact) => {
   try {
     await axios.put(`${apiBaseUrl}/${number}`, contact);
   } catch (err) {
-    return await err.response.status
+    return await err.response.status;
   }
-}
+};

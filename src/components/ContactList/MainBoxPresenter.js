@@ -61,6 +61,7 @@ const MainBoxPresenter = (props) => {
       <DelButton contactyn={contact} onClick={() => handleDelete(contact.id)}>
         삭제
       </DelButton>
+      
     </Box>
   );
 };

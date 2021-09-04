@@ -2,12 +2,14 @@ const SET_SEARCH_KEYWORD = "SET_SEARCH_KEYWORD";
 const SET_CONTACT_LIST = "SET_CONTACT_LIST";
 const SET_CONTACT_SELECTED = "SET_CONTACT_SELECTED";
 const SET_OBSERVER = "SET_OBSERVER";
+const SET_ERRORCODE = "SET_ERRORCODE";
 
 const initialState = {
   searchKeyword: "",
   contactList: [],
   selectedcontact: {},
   observer : false,
+  errCode : 0,
 };
 
 const reducer = (state = initialState, action) => {
@@ -20,6 +22,8 @@ const reducer = (state = initialState, action) => {
       return applySetContactSelected(state, action);
     case SET_OBSERVER:
       return applySetObserver(state,action);
+    case SET_ERRORCODE:
+      return applySetErrorCode(state, action);
 
     default:
       return state;
@@ -85,7 +89,22 @@ const applySetObserver = (state, action) => {
     ...state,
     observer : value,
   }
-} 
+}
+
+const setErrorCode = (code) => {
+  return {
+    type : SET_ERRORCODE,
+    code,
+  }
+}
+
+const applySetErrorCode = (state, action) => {
+  const { code } = action;
+  return {
+    ...state,
+    errCode : code,
+  }
+}
 
 export default reducer;
 export const actionCreators = {
@@ -93,4 +112,5 @@ export const actionCreators = {
   setContactList,
   setContactSelected,
   setObserver,
+  setErrorCode,
 };
