@@ -29,7 +29,7 @@ class ContactListContainer extends PureComponent {
 
   render() {
     const { contactList, selectedcontact } = this.props;
-
+    console.log(contactList);
     return (
       <ContactListPresenter
         {...this.props}

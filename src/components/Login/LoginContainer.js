@@ -20,9 +20,11 @@ class LoginContainer extends PureComponent {
     const res = await Login(this.state);
 
     if (res === undefined) {
-      this.props.history.push("/list");
+      setTimeout(() => {
+        this.props.history.push("/list");
+      }, 5000);
     } else {
-      alert("존재하지 않는 계정입니다.")
+      alert("존재하지 않는 계정입니다.");
       return false;
     }
   };

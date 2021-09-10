@@ -39,7 +39,7 @@ const LoginPresenter = (props) => {
             <InsertBtn type="submit" value="로그인" />
         </Box>
         <div style={{marginTop:30, width:300}}>
-          관리자 계정 : ADMIN/ADMIN
+          관리자 계정 : ADMIN/ADMIN<p/>
           유저 계정 : USER/USER
         </div>
         </div>
