@@ -5,16 +5,22 @@ import { withRouter } from "react-router-dom";
 
 class MainBoxContainer extends Component {
 
-  handleDelete = (deleteNum) => {
+  handleDelete = async (deleteNum) => {
     const { setContactSelected , selectedcontact, setContactList, contactList } = this.props;
 
     setContactSelected(null);
+
     if (selectedcontact) {
-      DeleteContact(deleteNum);
-      setContactList(
-        contactList.filter((contact) => contact.id !== selectedcontact.id)
-      );
-      setContactSelected({});
+      const res = await DeleteContact(deleteNum);
+      if(res === 403) {
+        alert("삭제는 권한이 없습니다.");
+        return false;
+      }else {
+        setContactList(
+          contactList.filter((contact) => contact.id !== selectedcontact.id)
+        );
+        setContactSelected({});
+      }
     }
   };
 
