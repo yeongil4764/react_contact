@@ -11,10 +11,9 @@ function* login(action) {
     const param = action.payload;
   try {
     const res = yield call(API.Login, param);
-
     yield put({
       type: LOGIN_SUCCESS,
-      data: res.data.user.id,
+      data: res,
     });
   } catch (err) {
     yield put({

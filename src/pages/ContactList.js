@@ -5,6 +5,7 @@ import styled from "styled-components";
 import ContactListView from "../components/ContactList";
 import Loading from "./Loading";
 import { actionCreators as contactActions } from "../redux/modules/contact";
+import cookie from "react-cookies";
 
 const MainContainer = styled.div`
   width: 100%;
@@ -16,7 +17,7 @@ const MainContainer = styled.div`
 `;
 
 const getCurrentUser = () => {
-  return JSON.parse(localStorage.getItem("Token"));
+  return cookie.load("accessToken");
 };
 
 const mapDispatchToProps = (dispatch) => {
@@ -36,8 +37,8 @@ const ContactList = (props) => {
     <MainContainer>
       <button
         onClick={() => {
-          localStorage.removeItem("Token");
-          if (getCurrentUser() === null) {
+          cookie.remove("accessToken");
+          if (getCurrentUser() === undefined) {
             history.push("/");
             props.setContactSelected();
           }

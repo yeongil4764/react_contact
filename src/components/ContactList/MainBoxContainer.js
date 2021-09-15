@@ -13,7 +13,7 @@ class MainBoxContainer extends Component {
     if (selectedcontact) {
       const res = await DeleteContact(deleteNum);
       if(res === 403) {
-        alert("삭제는 권한이 없습니다.");
+        alert("삭제할 권한이 없습니다.");
         return false;
       }else {
         setContactList(
