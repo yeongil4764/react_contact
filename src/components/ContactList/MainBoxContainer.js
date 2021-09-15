@@ -17,7 +17,7 @@ class MainBoxContainer extends Component {
         return false;
       }else {
         setContactList(
-          contactList.filter((contact) => contact.id !== selectedcontact.id)
+          contactList.data.filter((contact) => contact.id !== selectedcontact.id)
         );
         setContactSelected({});
       }

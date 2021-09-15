@@ -1,5 +1,4 @@
 import React, { PureComponent } from "react";
-import { getAll } from "../../../../api";
 import ContactListPresenter from "./ContactListPresenter";
 
 class ContactListContainer extends PureComponent {
@@ -8,28 +7,22 @@ class ContactListContainer extends PureComponent {
     setContactSelected(contact);
   };
 
-  setDefaultList = async () => {
-    const { setDefaultList } = this.props;
-    const list = await getAll();
-    setDefaultList(list);
-  };
-
   componentDidMount() {
-    this.setDefaultList();
+    const { setContactList } = this.props;
+    setContactList();
   }
 
-  componentDidUpdate() {
-    const { setObserver, observer } = this.props;
+  componentDidUpdate(prevProps, prevState) {
+    const { setObserver, observer, setContactList } = this.props;
 
     if (observer === true) {
       setObserver(false);
-      this.setDefaultList();
+      setContactList();
     }
   }
 
   render() {
     const { contactList, selectedcontact } = this.props;
-    console.log(contactList);
     return (
       <ContactListPresenter
         {...this.props}

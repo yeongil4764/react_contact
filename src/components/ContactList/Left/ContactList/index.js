@@ -4,7 +4,7 @@ import { actionCreators as contactActions } from "../../../../redux/modules/cont
 
 const mapStateToProps = (state) => {
   const {
-    contact: { contactList, searchKeyword, selectedcontact, observer},
+    contact: { contactList, searchKeyword, selectedcontact, observer },
   } = state;
 
   return {
@@ -16,9 +16,10 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  const setDefaultList = (list) => {
-    dispatch(contactActions.setContactList(list));
+  const setContactList = () => {
+    dispatch(contactActions.setContactList());
   };
+
   const setContactSelected = (contact) => {
     dispatch(contactActions.setContactSelected(contact));
   };
@@ -27,9 +28,9 @@ const mapDispatchToProps = (dispatch) => {
   };
 
   return {
-    setDefaultList,
     setContactSelected,
     setObserver,
+    setContactList,
   };
 };
 

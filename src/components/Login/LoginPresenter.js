@@ -27,23 +27,44 @@ const InsertBtn = styled.input`
   align-self: center;
 `;
 
+const PendBox = styled.div`
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 const LoginPresenter = (props) => {
-    const {handleChange, handleSubmit} = props;
-    return (
-      <div>
-        <Box onSubmit={handleSubmit}>
-            <div>아이디</div>
-            <LoginInput type="text" name="name" onChange={handleChange} defaultValue=""/>
-            <div>패스워드</div>
-            <LoginInput type="password" name="password" onChange={handleChange} defaultValue=""/>
-            <InsertBtn type="submit" value="로그인" />
-        </Box>
-        <div style={{marginTop:30, width:300}}>
-          관리자 계정 : ADMIN/ADMIN<p/>
-          유저 계정 : USER/USER
-        </div>
-        </div>
-    )
-}
+  const { handleChange, handleSubmit, user } = props;
+
+  if (user.Loading) return <PendBox> 로그인 중... </PendBox>;
+
+  return (
+    <div>
+      <Box onSubmit={handleSubmit}>
+        <div>아이디</div>
+        <LoginInput
+          type="text"
+          name="name"
+          onChange={handleChange}
+          defaultValue=""
+        />
+        <div>패스워드</div>
+        <LoginInput
+          type="password"
+          name="password"
+          onChange={handleChange}
+          defaultValue=""
+        />
+        <InsertBtn type="submit" value="로그인" />
+      </Box>
+      <div style={{ marginTop: 30, width: 300 }}>
+        관리자 계정 : ADMIN/ADMIN
+        <p />
+        유저 계정 : USER/USER
+      </div>
+    </div>
+  );
+};
 
 export default LoginPresenter;

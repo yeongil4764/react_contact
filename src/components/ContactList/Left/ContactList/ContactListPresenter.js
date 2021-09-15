@@ -28,6 +28,13 @@ const ListBox = styled.ul`
   overflow-y: scroll;
 `;
 
+const PendBox = styled.div`
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 const ContactListPresenter = (props) => {
   const {
     contactList,
@@ -50,9 +57,13 @@ const ContactListPresenter = (props) => {
     return false;
   };
 
+  if (contactList.loading) return <PendBox> 로딩중... </PendBox>;
+  if (contactList.error) return <PendBox> 연락처 조회 에러 </PendBox>;
+  if (!contactList.data) return null;
+
   return (
     <ListBox>
-      {contactList
+      {contactList.data
         .filter((contact) => containKeyword(searchKeyword, contact))
         .map((contact) => (
           <Card key={contact.email} isSelect={selectedcontact === contact}>
