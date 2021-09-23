@@ -5,7 +5,6 @@ import ContactRegister from "./pages/ContactRegister";
 import NotFound from "./pages/NotFound";
 import cookie from "react-cookies";
 import { useHistory } from "react-router";
-import { useState } from "react";
 
 const getCurrentUser = () => {
   return cookie.load("accessToken");

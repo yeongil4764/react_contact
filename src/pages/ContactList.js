@@ -6,6 +6,7 @@ import ContactListView from "../components/ContactList";
 import Loading from "./Loading";
 import { actionCreators as contactActions } from "../redux/modules/contact";
 import cookie from "react-cookies";
+import { deleteRt } from "../api";
 
 const MainContainer = styled.div`
   width: 100%;
@@ -36,10 +37,16 @@ const ContactList = (props) => {
   return (
     <MainContainer>
       <button
-        onClick={() => {
+        onClick={ async() => {
+          const id = cookie.load("rtid");
           cookie.remove("accessToken");
+          cookie.remove("expireAt");
+          cookie.remove("rtid");
+          cookie.remove("name");
+
           if (getCurrentUser() === undefined) {
             history.push("/");
+            await deleteRt(id);
             props.setContactSelected();
           }
         }}
