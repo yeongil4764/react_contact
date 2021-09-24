@@ -1,37 +1,42 @@
-import cookie from "react-cookies";
-import moment from "moment";
 import axios from "axios";
+import moment from "moment";
+import Cookies from "universal-cookie";
+
+const cookies = new Cookies();
 
 const refresh = async (config) => {
-
-  const rtid = cookie.load("rtid");
-  const expireAt = cookie.load("expireAt") * 1000;
-
-  let token = cookie.load("accessToken");
+  const rtid = cookies.get("rtid");
+  const expireAt = cookies.get("expireAt") * 1000;
 
   const expires = new Date();
-  expires.setDate(Date.now() + 1000 * 60 * 5);
+
+  let token = cookies.get("accessToken");
+  let time = cookies.get("expireAt")
+
+  expires.setDate(Date.now() + 1000 * 60 * 15);
 
   if (moment(expireAt).diff(moment()) < 0 && rtid) {
-    console.log('here');
     const { data } = await axios.post(`https://address-api2.herokuapp.com/rt`, {
       id: Number(rtid),
-      name: cookie.load("name"),
+      name: cookies.get("name"),
     });
-
-    token = data.data.accessToken;
-    cookie.save("accessToken", data.data.accessToken, {
+    console.log(data);
+    token = data.accessToken;
+    time = data.expireAt;
+  
+    cookies.set("accessToken", token, {
       path: "/",
-      httpOnly: true,
+      httpOnly: false,
       expires,
       secure: true,
     });
-    cookie.save(
+
+    cookies.set(
       "expireAt",
-      moment().add(5, "minute").format("yyyy-MM-DD HH:mm:ss"),
+      time,
       {
         path: "/",
-        httpOnly: true,
+        httpOnly: false,
         expires,
         secure: true,
       }
@@ -43,7 +48,7 @@ const refresh = async (config) => {
 };
 
 const refreshErrorHandle = (err) => {
-  cookie.remove("rtid");
+  cookies.remove("rtid");
 };
 
 export { refresh, refreshErrorHandle };
