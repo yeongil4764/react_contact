@@ -10,6 +10,7 @@ import { deleteRt } from "../api";
 import moment from "moment";
 
 const cookies = new Cookies();
+const expireAt = cookies.get("expireAt") * 1000;
 
 const MainContainer = styled.div`
   width: 100%;
@@ -34,15 +35,14 @@ const mapDispatchToProps = (dispatch) => {
 const ContactList = (props) => {
   const [min, setMin] = useState(0);
   const [sec, setSec] = useState(0);
-  const [expireAt, setExpireAt] = useState(cookies.get("expireAt") * 1000);
 
   useInterval(() => {
     setMin(parseInt(moment(expireAt).diff(moment()) / 1000 / 60));
     setSec(parseInt((moment(expireAt).diff(moment()) / 1000) % 60));
-    if(moment(expireAt).diff(moment()) === 0) {
-      setExpireAt(cookies.get("expireAt") * 1000);
+    if (moment(expireAt).diff(moment()) < -500) {
+      window.location.reload();
     }
-  }, 1000);
+  }, 1100);
 
   const history = useHistory();
 
@@ -68,7 +68,7 @@ const ContactList = (props) => {
         로그아웃
       </button>
       <div>
-        <h2>{expireAt && (min + sec) !== 0 ? `${min}분${sec}초` : null}</h2>
+        <h2>{expireAt && min + sec !== 0 ? `${min}분${sec}초` : null}</h2>
       </div>
       <hr />
       <Suspense fallback={<Loading />}>
