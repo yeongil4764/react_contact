@@ -24,25 +24,25 @@ export const Login = async (userinfo) => {
 
     cookies.set("accessToken", accessToken, {
       path: "/",
-      httpOnly: false,
+      httpOnly: true,
       expires,
       secure: true,
     });
     cookies.set("expireAt", expireAt, {
       path: "/",
-      httpOnly: false,
+      httpOnly: true,
       expires,
       secure: true,
     });
     cookies.set("rtid", rtid, {
       path: "/",
-      httpOnly: false,
+      httpOnly: true,
       rexpires,
       secure: true,
     });
     cookies.set("name", user.name, {
       path: "/",
-      httpOnly: false,
+      httpOnly: true,
       expires,
       secure: true,
     });
