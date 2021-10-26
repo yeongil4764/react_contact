@@ -26,7 +26,7 @@ const refresh = async (config) => {
   
     cookies.set("accessToken", token, {
       path: "/",
-      httpOnly: true,
+      httpOnly: false,
       expires,
       secure: true,
     });
@@ -36,7 +36,7 @@ const refresh = async (config) => {
       time,
       {
         path: "/",
-        httpOnly: true,
+        httpOnly: false,
         expires,
         secure: true,
       }
