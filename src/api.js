@@ -20,7 +20,7 @@ export const Login = async (userinfo) => {
     expires.setDate(Date.now() + 1000 * 60 * 15);
     rexpires.setDate(Date.now() + 1000 * 60 * 60 * 24 * 7);
 
-    Api.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
+    Api.defaults.headers.common["Authorization"] = `Bearer ${res}`;
 
     cookies.set("accessToken", accessToken, {
       path: "/",
@@ -47,7 +47,7 @@ export const Login = async (userinfo) => {
       secure: true,
     });
 
-    return accessToken;
+    return true;
   } catch (err) {
     return await err.response.status;
   }
